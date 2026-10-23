@@ -1,0 +1,24 @@
+const fs=require('node:fs');const path=require('node:path');const assert=require('node:assert/strict');const vm=require('node:vm');
+const root=path.join(__dirname,'..');const ctx={window:{}};vm.runInNewContext(fs.readFileSync(path.join(root,'questions.js'),'utf8'),ctx);
+const qs=ctx.window.ENADE_BANK.questions;
+const l=require('../script.js');const ordered=l.makeOrder(qs);
+const expected=['E','C','B','B','A','A','C','D','C','D','E','C','C','E','B','E','C','A','A','E','B','A','B','D','E','E','C','B','D','C','D','B','D','A','A'];
+assert.equal(qs.length,40);assert.equal(qs.filter(q=>q.type==='objective').length,35);assert.equal(qs.filter(q=>q.type==='discursive').length,5);
+assert.equal(ordered[0].id,'D1');assert.equal(ordered[39].id,'Q35');
+assert.deepEqual(Array.from(qs.filter(q=>q.type==='objective').map(q=>q.correct)),expected);
+for(const q of qs){assert.equal(q.origin,'Oficial ENADE 2021');assert.ok(q.images.length>0);assert.ok(q.transcript.length>0);
+ q.images.forEach(p=>assert.ok(fs.existsSync(path.join(root,p)),`missing ${p}`));
+ if(q.type==='discursive')q.modelImages.forEach(p=>assert.ok(fs.existsSync(path.join(root,p))));
+ if(q.type==='objective')assert.ok(q.explanation.length>45);
+}
+assert.equal(l.pending(qs,{}).length,40);
+const perfect=Object.fromEntries(qs.map(q=>[q.id,q.type==='objective'?q.correct:'Algoritmo \n x=7; \n fim']));
+assert.equal(l.pending(qs,perfect).length,0);assert.equal(l.grade(qs,perfect).percentage,100);
+const wrong={...perfect,Q35:'B',Q07:'A'};const scores=l.grade(qs,wrong);assert.equal(scores.correct,33);assert.equal(scores.incorrect,2);
+const rec={id:'ADS2021-test',status:'finished',student:{name:'Aluno Exemplo',turma:'ADS',matricula:'TESTE'},startedAt:'2026-10-22T09:00:00-03:00',completedAt:'2026-10-22T12:00:00-03:00',answers:wrong};
+const report=l.reportData(rec,ordered);assert.equal(report.answers.length,40);assert.equal(report.scores.correct,33);
+const csv=l.csvData(report);assert.ok(csv.startsWith('\ufeff'));assert.ok(csv.includes('Algoritmo \n x=7'));
+const md=l.markdownData(report);assert.equal((md.match(/^## Questão /gm)||[]).length,35);assert.equal((md.match(/^## Discursiva /gm)||[]).length,5);
+assert.equal(l.isAnswered(ordered[0],'  '),false);
+assert.equal(l.pending(qs,{...perfect,D1:'\t \n'}).length,1);
+console.log('OK: 40 originais, 35 chaves oficiais, cinco padrões, ordem, pendências, pontuação, CSV, Markdown, JSON.');

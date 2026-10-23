@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#142b4c">
+  <meta name="description" content="Simulado interativo do ENADE 2021 em ADS com relatório individual completo para professor.">
+  <title>Simulado ENADE ADS 2021 — Prova e Gabarito</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Ir ao conteúdo</a>
+  <header class="site-header no-print">
+    <div class="brand"><span class="brand-icon" aria-hidden="true">◆</span><div><strong>ENADE <em>ADS</em></strong><small>Simulado acadêmico • Edição 2021</small></div></div>
+    <span class="header-tag">Análise e Desenvolvimento de Sistemas</span>
+  </header>
+  <main id="main">
+    <section id="welcome" class="screen intro-screen" aria-labelledby="welcomeTitle">
+      <div class="intro-grid">
+        <div class="intro-main">
+          <p class="eyebrow">SIMULADO BASEADO NA PROVA OFICIAL</p>
+          <h1 id="welcomeTitle">Aprenda com cada resposta. <span>Acompanhe sua evolução.</span></h1>
+          <p class="lead">Realize o ENADE 2021 de Tecnologia em Análise e Desenvolvimento de Sistemas em um ambiente interativo. Ao concluir, gere o <strong>gabarito completo respondido</strong> para análise do professor.</p>
+          <div class="stats-intro"><div><b>40</b><span>questões oficiais</span></div><div><b>35</b><span>objetivas</span></div><div><b>5</b><span>discursivas</span></div></div>
+          <form id="studentForm" class="identity-card">
+            <h2>Identificação do estudante</h2>
+            <p>Esses dados constarão no gabarito enviado ao professor. Permanecem no seu navegador, salvo se você exportar e compartilhar o relatório.</p>
+            <div class="form-grid">
+              <label>Nome completo <span aria-hidden="true">*</span><input id="studentName" name="studentName" type="text" autocomplete="name" maxlength="140" required placeholder="Nome do estudante"></label>
+              <label>Turma <small>(opcional)</small><input id="studentClass" name="studentClass" type="text" maxlength="90" placeholder="Ex.: ADS — 6º semestre"></label>
+              <label>Identificador/matrícula <small>(opcional)</small><input id="studentCode" name="studentCode" type="text" maxlength="65" placeholder="RA ou código da turma"></label>
+            </div>
+            <button id="startBtn" type="submit" class="button button-primary button-large">Iniciar simulado <span aria-hidden="true">→</span></button>
+            <p id="resumeMessage" class="subtle" hidden>Existe uma tentativa iniciada neste navegador. O botão acima permite retomá-la.</p>
+          </form>
+        </div>
+        <aside class="guide-card" aria-labelledby="guideTitle"><span class="eyebrow">COMO FUNCIONA</span><h2 id="guideTitle">Seu percurso</h2>
+          <ol class="guide-steps">
+            <li><span>01</span><div><strong>Responda e navegue</strong><p>Consulte as imagens originais da prova e mova-se livremente entre os itens.</p></div></li>
+            <li><span>02</span><div><strong>Complete os 40 itens</strong><p>Preencha todas as objetivas e as cinco discursivas antes de finalizar.</p></div></li>
+            <li><span>03</span><div><strong>Revise o gabarito</strong><p>Veja acertos, erros, explicações e padrões oficiais para autoavaliação.</p></div></li>
+            <li><span>04</span><div><strong>Envie ao professor</strong><p>Gere um relatório PDF imprimível com <b>todas</b> as respostas, inclusive o texto integral das discursivas.</p></div></li>
+          </ol>
+          <div class="notice"><strong>Critério:</strong> os acertos das 35 objetivas têm peso igual. Discursivas dependem de correção humana. O percentual não corresponde à nota oficial do ENADE.</div>
+        </aside>
+      </div>
+      <section class="history-section" aria-labelledby="historyTitle"><div class="section-top"><div><h2 id="historyTitle">Histórico local de tentativas</h2><p>Consulte relatórios anteriores salvos neste navegador. Faça download do PDF para manter uma cópia confiável.</p></div></div><div id="historyList" class="history-list"><p class="subtle">Ainda não há tentativas concluídas.</p></div></section>
+    </section>
+
+    <section id="exam" class="screen exam-screen" aria-labelledby="examTitle" hidden>
+      <div class="screen-top"><div><p class="eyebrow">AVALIAÇÃO EM ANDAMENTO</p><h1 id="examTitle">Caderno de questões</h1><p id="examStudent" class="subtle"></p></div><span class="status-pill">● Tentativa em andamento</span></div>
+      <section class="progress-card" aria-label="Progresso"><div class="spread"><strong id="progressLabel">0 de 40 respondidas</strong><strong id="progressPercentage">0%</strong></div><div id="progressBar" class="progress-rail" role="progressbar" aria-valuemin="0" aria-valuemax="40" aria-valuenow="0" aria-label="Progresso da prova"><div id="progressFill" class="progress-fill"></div></div><div class="spread small"><span id="objectiveProgress">Objetivas: 0/35</span><span id="discursiveProgress">Discursivas: 0/5</span></div></section>
+      <div class="exam-grid">
+        <aside class="map-card" aria-label="Mapa da prova"><div class="spread"><h2>Mapa de questões</h2><span class="subtle">40 itens</span></div><p class="map-legend"><span><i class="dot done"></i> Respondida</span><span><i class="dot wait"></i> Pendente</span></p><nav id="questionMap" aria-label="Navegar entre as 40 questões"></nav><button id="viewPending" type="button" class="button button-outline full">Ver pendências <span id="pendingNumber">40</span></button></aside>
+        <div class="question-side"><article id="questionPanel" class="question-card" aria-labelledby="questionTitle"></article><div class="nav-row"><button id="prevQuestion" class="button button-outline" type="button">← Anterior</button><span id="positionLabel" class="subtle">Item 1 de 40</span><button id="nextQuestion" class="button button-primary" type="button">Próxima →</button></div>
+          <section class="pending-card" id="pendingSection" hidden aria-labelledby="pendingTitle"><h2 id="pendingTitle">Questões pendentes</h2><p>Selecione um item para respondê-lo.</p><div id="pendingLinks" class="pending-links"></div></section>
+          <section class="finish-card"><div><span class="eyebrow">ENCERRAMENTO</span><h2>Concluiu todas as questões?</h2><p id="finishHint">Preencha os 40 itens para ativar a finalização.</p></div><button id="finishBtn" class="button button-primary" type="button" disabled>Finalizar simulado</button></section>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="screen results-screen" aria-labelledby="resultsTitle" hidden>
+      <div class="screen-top"><div><p class="eyebrow">PROVA FINALIZADA</p><h1 id="resultsTitle">Seu desempenho</h1><p id="resultsStudent" class="subtle"></p></div><button id="newAttempt" class="button button-outline" type="button">Nova tentativa ↻</button></div>
+      <div class="stat-grid" id="scoreSummary"></div>
+      <section class="teacher-export" aria-labelledby="teacherExportTitle"><div class="export-heading"><div><span class="eyebrow">ENTREGA AO PROFESSOR</span><h2 id="teacherExportTitle">Gabarito individual completo</h2><p>Os arquivos incluem as 40 respostas registradas, resultados e critérios de correção. O PDF imprimível também inclui os recortes originais da prova e os padrões de resposta discursivos.</p></div><div class="seal">40/40<br><small>respostas</small></div></div>
+        <div class="export-buttons"><button id="exportPdf" class="button button-primary" type="button">Visualizar / Salvar PDF completo</button><button id="exportCsv" class="button button-outline" type="button">Exportar CSV</button><button id="exportMd" class="button button-outline" type="button">Exportar Markdown</button><button id="exportJson" class="button button-outline" type="button">Exportar JSON</button></div>
+        <p class="export-help">Para criar o arquivo PDF, clique em “Visualizar / Salvar PDF completo” e depois em “Imprimir / Salvar como PDF”. O navegador permite selecionar o destino do arquivo. O histórico local não substitui esse backup.</p>
+      </section>
+      <div class="analysis-grid"><section class="analysis-card"><h2>Desempenho por componente</h2><div id="groupResults"></div></section><section class="analysis-card"><h2>Desempenho por área</h2><p class="subtle">Agrupamento pedagógico dos temas, não classificação oficial do INEP.</p><div class="area-results" id="areaResults"></div></section></div>
+      <section class="review-section" aria-labelledby="reviewTitle"><h2 id="reviewTitle">Gabarito comentado</h2><p>Consulte sua resposta, o gabarito definitivo e o comentário de cada item. As discursivas dependem de correção humana.</p><div id="reviewList"></div></section>
+    </section>
+
+    <section id="teacherReport" class="teacher-report" aria-labelledby="teacherTitle" hidden>
+      <div class="report-toolbar no-print"><strong>Gabarito completo para correção docente</strong><div><button id="printReport" type="button" class="button button-primary">Imprimir / Salvar em PDF</button><button id="backReport" type="button" class="button button-outline">Voltar aos resultados</button></div></div>
+      <div id="printDocument"></div>
+    </section>
+  </main>
+  <footer class="footer no-print"><span>ENADE ADS 2021 • Simulado educativo independente</span><span>Offline • Sem servidor, sem dependências</span></footer>
+  <dialog id="confirmDialog" aria-labelledby="confirmTitle"><div class="modal"><div class="modal-symbol">✓</div><h2 id="confirmTitle">Finalizar esta tentativa?</h2><p>Suas 40 respostas serão registradas. Depois disso, você poderá consultar o gabarito oficial e gerar o relatório completo para seu professor, mas não poderá editar esta tentativa.</p><div class="dialog-buttons"><button id="cancelFinish" type="button" class="button button-outline">Continuar respondendo</button><button id="confirmFinish" type="button" class="button button-primary">Confirmar finalização</button></div></div></dialog>
+  <script src="questions.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
